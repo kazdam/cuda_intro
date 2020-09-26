@@ -1,7 +1,7 @@
 NVCC     = /opt/cuda/bin/nvcc
 NVPROF   = /opt/cuda/bin/nvprof --unified-memory-profiling off 
 PROGRAMS = add add_cuda add_block add_grid
-NVPROGRAMS = add_cuda add_block add_grid
+NVPROGRAMS = clock_cuda add_cuda add_block add_grid
 
 all: $(PROGRAMS) profile
 
@@ -17,6 +17,9 @@ add_block: add_block.cu
 add_grid: add_grid.cu
 	$(NVCC) add_grid.cu -o add_grid
 
+clock_cuda: clock.cu
+	$(NVCC) clock.cu -o clock_cuda
+
 clean:
 	rm $(PROGRAMS)
 
@@ -24,5 +27,6 @@ profile: $(NVPROGRAMS)
 	$(NVPROF) ./add_cuda
 	$(NVPROF) ./add_block
 	$(NVPROF) ./add_grid
+	$(NVPROF) ./clock_cuda
 
 
